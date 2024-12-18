@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-microservice
+spec:
+  type: NodePort
+  selector:
+    app: kafka-microservice
+  ports:
+    - port: 30008
+      targetPort: 4000

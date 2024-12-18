@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-microservice
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kafka-microservice
+  template:
+    metadata:
+      labels:
+        app: kafka-microservice
+    spec:
+      containers:
+      - name: kafka-microservice-middleware
+        image: nipunmobcoder/kafka-microservice
+        env: 
+        - name: KAFKA_BROKER
+          valueFrom:
+            secretKeyRef:
+              name: kafka-secret
+              key: KAFKA_BROKER
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 4000
